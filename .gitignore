@@ -6,3 +6,5 @@ dist
 build
 .nyc_output
 coverage
+src/**/*.js
+src/**/*.js.map
