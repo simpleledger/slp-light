@@ -3,7 +3,7 @@
 slp-light is a lightweight library for creating a slp-token transaction. It has few exposed methods to make sure it is as 
 easy as possible to create a token transaction, hiding all complexity from the user. 
 
-#Installation
+# Installation
 ```bash
 npm install slp-light
 ```
@@ -23,7 +23,8 @@ import { Utxo } from './src/Utxo';
 let utxos: Utxo[] = await retrieveUtxos({cashAddress: "bitcoincash:qzm4u38umtw6ak4was24r6ucerkzzxqr5s2328xm0r", wif: "WIF"}, new BitcoinComRetrieverImpl());
 ```
 
-Using custom `UtxoRetrieverFacade`
+Using custom `UtxoRetrieverFacade`. When using a custom retriever make sure the source only allows ***valid slp-transactions***. Since the library
+does not have its own validation it relies on the utxo source for validation.
 ```ts
 import { retrieveUtxos } from './src/index';
 import {Address, Utxo } from './src/Utxo'; 
@@ -35,7 +36,7 @@ const retriever: UtxoRetrieverFacade = {
             return Promise.resolve([]);
         }
 }
-let utxos: Utxo[] = await retrieveUtxos({cashAddress: "bitcoincash:qzm4u38umtw6ak4was24r6ucerkzzxqr5s2328xm0r", wif: "WIF"}, retriever);
+const utxos: Utxo[] = await retrieveUtxos({cashAddress: "bitcoincash:qzm4u38umtw6ak4was24r6ucerkzzxqr5s2328xm0r", wif: "WIF"}, retriever);
 ```
 
 ### Selecting utxos
@@ -45,8 +46,8 @@ import { SelectedUtxos } from './src/index';
 import BigNumber from 'bignumber.js'; 
 import {Utxo } from './src/Utxo'; 
 
-let utxos: Utxo[] = [];
-let selectUtxo: SelectedUtxos = selectUtxos(new BigNumber("5"), "323437d4c86b00874c3b00cd454ab6ffb3226130fde09747009cf270caedddcf", utxos);
+const utxos: Utxo[] = [];
+const selectUtxo: SelectedUtxos = selectUtxos(new BigNumber("5"), "323437d4c86b00874c3b00cd454ab6ffb3226130fde09747009cf270caedddcf", utxos);
 ```
 
 
@@ -57,7 +58,7 @@ import BigNumber from 'bignumber.js';
 import { SelectedUtxos } from './src/utxo'; 
 
 const mySelectedUtxos: SelectedUtxos = null;
-let rawTx = createRawTx(new BigNumber("5"), "dcf128f7f836f369d339963685e91b105cf7982d8977d09f6a776329a6e290e7",
+const rawTx = createRawTx(new BigNumber("5"), "dcf128f7f836f369d339963685e91b105cf7982d8977d09f6a776329a6e290e7",
         "bitcoincash:qrve2j5h2f8hy9hlptu7ejltzf4m7fwees60qss5f4",
         "bitcoincash:qzm4u38umtw6ak4was24r6ucerkzzxqr5s2328xm0r",
         mySelectedUtxos);
@@ -72,14 +73,14 @@ import { BitcoinComRetrieverImpl } from './src/facade/BitcoinComRetrieverImpl';
 import BigNumber from 'bignumber.js'; 
 import { SelectedUtxos } from './src/utxo'; 
 
-let utxos = await retrieveUtxos({
+const utxos = await retrieveUtxos({
     cashAddress: "bitcoincash:qzm4u38umtw6ak4was24r6ucerkzzxqr5s2328xm0r",
     wif: "WIF_GOES_HERE"
     }, new BitcoinComRetrieverImpl());
 
-let selectUtxo: SelectedUtxos = selectUtxos(new BigNumber("5"), "323437d4c86b00874c3b00cd454ab6ffb3226130fde09747009cf270caedddcf", utxos);
+const selectUtxo: SelectedUtxos = selectUtxos(new BigNumber("5"), "323437d4c86b00874c3b00cd454ab6ffb3226130fde09747009cf270caedddcf", utxos);
 
-let rawTx = createRawTx(new BigNumber("5"), "dcf128f7f836f369d339963685e91b105cf7982d8977d09f6a776329a6e290e7",
+const rawTx = createRawTx(new BigNumber("5"), "dcf128f7f836f369d339963685e91b105cf7982d8977d09f6a776329a6e290e7",
         "bitcoincash:qrve2j5h2f8hy9hlptu7ejltzf4m7fwees60qss5f4",
         "bitcoincash:qzm4u38umtw6ak4was24r6ucerkzzxqr5s2328xm0r",
         selectUtxo);
