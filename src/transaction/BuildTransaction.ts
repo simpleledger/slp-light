@@ -22,6 +22,7 @@ export class BuildTransaction {
         const tokenChangeAmount = this.getTokenChangeAmount(tokenId, sendTokenAmount, selectedUtxos.utxos);
 
         transactionBuilder.addOutput(this.createOpReturn(tokenId, sendTokenAmount, tokenChangeAmount), 0);
+        // TODO to handle inputs > 64bit we need to add additional outputs to fulfill
         transactionBuilder.addOutput(sendToAddress, BuildTransaction.DUST_OUTPUT);
 
         if (tokenChangeAmount.isGreaterThan(0)) {
