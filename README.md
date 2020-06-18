@@ -14,16 +14,16 @@ npm install slp-light
 To fetch utxos use the method `retrieveUtxos()` which lets the user select the source of the utxos. Here is an 
 example using public available apis from [Bitcoin.com](https://rest.bitcoin.com).
 
-##### Using `BitcoinComRetrieverImpl`
+Using `BitcoinComRetrieverImpl`
 ```ts
 import { retrieveUtxos } from './src/index'; 
 import { BitcoinComRetrieverImpl } from './src/facade/BitcoinComRetrieverImpl'; 
 import { Utxo } from './src/Utxo';
 
-let utxos: Utxo[] = await retrieveUtxos({cashAddress: "bitcoincash:qzm4u38umtw6ak4was24r6ucerkzzxqr5s2328xm0r"}, new BitcoinComRetrieverImpl());
+let utxos: Utxo[] = await retrieveUtxos({cashAddress: "bitcoincash:qzm4u38umtw6ak4was24r6ucerkzzxqr5s2328xm0r", wif: "WIF"}, new BitcoinComRetrieverImpl());
 ```
 
-##### Using custom `UtxoRetrieverFacade`
+Using custom `UtxoRetrieverFacade`
 ```ts
 import { retrieveUtxos } from './src/index';
 import {Address, Utxo } from './src/Utxo'; 
@@ -35,7 +35,7 @@ const retriever: UtxoRetrieverFacade = {
             return Promise.resolve([]);
         }
 }
-let utxos: Utxo[] = await retrieveUtxos({cashAddress: "bitcoincash:qzm4u38umtw6ak4was24r6ucerkzzxqr5s2328xm0r"}, retriever);
+let utxos: Utxo[] = await retrieveUtxos({cashAddress: "bitcoincash:qzm4u38umtw6ak4was24r6ucerkzzxqr5s2328xm0r", wif: "WIF"}, retriever);
 ```
 
 ### Selecting utxos
@@ -65,6 +65,7 @@ let rawTx = createRawTx(new BigNumber("5"), "dcf128f7f836f369d339963685e91b105cf
 
 ### Complete example
 
+Using `BitcoinComRetrieverImpl`
 ```ts
 import { retrieveUtxos, createRawTx, selectUtxos } from './src/index'; 
 import { BitcoinComRetrieverImpl } from './src/facade/BitcoinComRetrieverImpl'; 
