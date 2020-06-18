@@ -43,7 +43,8 @@ export class BitcoinComRetrieverImpl implements UtxoRetrieverFacade {
                         transactionType: r.transactionType,
                         tokenType: r.tokenType,
                         slpTokenName: r.slpTokenName,
-                        decimals: r.tokenDecimal
+                        decimals: r.tokenDecimal,
+                        hasBaton: r.hasBaton
                     }
                 };
                 return utxo;

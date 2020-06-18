@@ -17,6 +17,7 @@ export interface SlpToken {
     tokenType: string;
     slpTokenName: string;
     decimals: number;
+    hasBaton: boolean;
 }
 
 export interface Address {
