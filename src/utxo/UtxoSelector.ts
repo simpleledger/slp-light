@@ -21,6 +21,7 @@ export class UtxoSelector {
         let inputTokensRaw: BigNumber = new BigNumber(0);
         const selectedSlpUtxos = slpUtxos
             .filter(u => u.slpToken.slpTokenId == tokenId)
+            .filter(u => ! u.slpToken.hasBaton)
             .sort((a, b) => a.slpToken.amount.comparedTo(b.slpToken.amount));
 
         const resultUtxo: Utxo[] = [];

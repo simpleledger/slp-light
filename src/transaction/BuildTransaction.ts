@@ -1,4 +1,4 @@
-import { BN, TokenType1 } from 'slp-mdm/dist';
+import { BN, TokenType1 } from 'slp-mdm';
 import { SelectedUtxos, Utxo } from '../utxo/Utxo';
 import { TransactionBuilder, ECPair } from 'bitbox-sdk'
 import BigNumber from 'bignumber.js';
@@ -21,6 +21,7 @@ export class BuildTransaction {
         const tokenChangeAmount = this.getTokenChangeAmount(tokenId, sendTokenAmount, selectedUtxos.utxos);
 
         transactionBuilder.addOutput(this.createOpReturn(tokenId, sendTokenAmount, tokenChangeAmount), 0);
+        // TODO to handle inputs > 64bit we need to add additional outputs to fulfill
         transactionBuilder.addOutput(sendToAddress, BuildTransaction.DUST_OUTPUT);
 
         if (tokenChangeAmount.isGreaterThan(0)) {
