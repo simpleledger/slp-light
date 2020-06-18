@@ -29,7 +29,7 @@ export class BitcoinComRetrieverImpl implements UtxoRetrieverFacade {
 
 }
 
-class BitcoinComBchRetriever implements BchUtxoRetrieverFacade {
+export class BitcoinComBchRetriever implements BchUtxoRetrieverFacade {
     public getBchUtxosFromAddress = (address: Address): Promise<Utxo[]> => {
         return Axios.post(BitcoinComRetrieverImpl.FULL_INDEXER_URL + "bch/v1/addrs/utxo", {
             addrs: address.cashAddress
@@ -51,7 +51,7 @@ class BitcoinComBchRetriever implements BchUtxoRetrieverFacade {
     }
 }
 
-class BitcoinComSlpRetriever implements SlpUtxoRetrieverFacade {
+export class BitcoinComSlpRetriever implements SlpUtxoRetrieverFacade {
     public getSlpUtxosFromAddress = (address: Address): Promise<Utxo[]> => {
         return Axios.get(BitcoinComRetrieverImpl.SLP_INDEXER_URL + "v3/slp/utxo/address/" + address.cashAddress).then(response => {
             if (response.data == undefined) {
