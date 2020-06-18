@@ -1,4 +1,4 @@
-import { BN, TokenType1 } from 'slp-mdm/dist';
+import { BN, TokenType1 } from 'slp-mdm';
 import { SelectedUtxos, Utxo } from '../utxo/Utxo';
 import { BITBOX } from 'bitbox-sdk'
 import BigNumber from 'bignumber.js';
