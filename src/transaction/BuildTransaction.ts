@@ -1,9 +1,8 @@
 import { BN, TokenType1 } from 'slp-mdm/dist';
 import { SelectedUtxos, Utxo } from '../utxo/Utxo';
-import { BITBOX } from 'bitbox-sdk'
+import { TransactionBuilder, ECPair } from 'bitbox-sdk'
 import BigNumber from 'bignumber.js';
 
-const bitbox = new BITBOX();
 
 export class BuildTransaction {
     static DUST_OUTPUT: number = 546;
@@ -17,7 +16,7 @@ export class BuildTransaction {
             throw "Input is incorrect";
         }
 
-        const transactionBuilder = new bitbox.TransactionBuilder("bitcoincash");
+        const transactionBuilder = new TransactionBuilder("bitcoincash");
 
         const tokenChangeAmount = this.getTokenChangeAmount(tokenId, sendTokenAmount, selectedUtxos.utxos);
 
@@ -34,7 +33,7 @@ export class BuildTransaction {
         selectedUtxos.utxos.forEach(input => transactionBuilder.addInput(input.txId, input.index));
         for (let i = 0; i < selectedUtxos.utxos.length; i++) {
             const input = selectedUtxos.utxos[i];
-            const ecPair = bitbox.ECPair.fromWIF(input.address.wif);
+            const ecPair = new ECPair().fromWIF(input.address.wif);
 
             transactionBuilder.sign(
                 i,
