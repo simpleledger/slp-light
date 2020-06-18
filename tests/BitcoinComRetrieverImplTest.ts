@@ -1,5 +1,5 @@
 import test from 'ava'
-import { BitcoinComRetrieverImpl } from '../src/facade/BitcoinComRetrieverImpl';
+import { BitcoinComRetrieverImpl } from '../src/facade/bitcoincom/BitcoinComRetrieverImpl';
 import { retrieveUtxos, selectUtxos, createRawTx } from '../build/main';
 import { SelectedUtxos } from '../src/utxo/Utxo';
 import BigNumber from 'bignumber.js';

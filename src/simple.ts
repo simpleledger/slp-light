@@ -2,7 +2,7 @@ import BigNumber from 'bignumber.js';
 import { BITBOX } from 'bitbox-sdk'
 import { retrieveUtxos, selectUtxos, createRawTx } from './index';
 import { SelectedUtxos, Utxo } from './utxo/Utxo';
-import { BitcoinComRetrieverImpl } from './facade/BitcoinComRetrieverImpl';
+import { BitcoinComRetrieverImpl } from './facade/bitcoincom/BitcoinComRetrieverImpl';
 
 // simple send mechanism using bitcoin-com
 // TODO this should compare against another source for inputs

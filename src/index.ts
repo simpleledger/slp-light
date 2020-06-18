@@ -1,8 +1,8 @@
-import { UtxoRetrieverFacade } from './facade/UtxoRetrieverFacade';
 import { BuildTransaction } from './transaction/BuildTransaction';
 import { UtxoSelector } from './utxo/UtxoSelector';
 import { Address, SelectedUtxos, Utxo } from './utxo/Utxo';
 import BigNumber from 'bignumber.js';
+import { UtxoRetrieverFacade } from './facade/UtxoRetrieverFacade';
 
 export const createRawTx = (tokenAmount: BigNumber,
                             tokenId: string,

@@ -17,7 +17,8 @@ test("Should succeed with 2 utxo", t => {
                 slpTokenName: '',
                 tokenTicker: '',
                 tokenType: '',
-                transactionType: ''
+                transactionType: '',
+                hasBaton: false
             }, txId: ''
         }
     ];
@@ -40,7 +41,8 @@ test("Should give to miner utxo", t => {
                 slpTokenName: '',
                 tokenTicker: '',
                 tokenType: '',
-                transactionType: ''
+                transactionType: '',
+                hasBaton: false
             }, txId: ''
         }
     ];

@@ -1,8 +1,7 @@
 import test from 'ava';
 import { retrieveUtxos, selectUtxos, createRawTx } from '../build/main';
 import BigNumber from 'bignumber.js';
-import { SelectedUtxos, Utxo } from '../src/utxo/Utxo';
-import { BitcoinComRetrieverImpl } from '../src/facade/BitcoinComRetrieverImpl';
+import { BitcoinComRetrieverImpl } from '../src/facade/bitcoincom/BitcoinComRetrieverImpl';
 
 // This test will start to fail when people steal all the coins.
 test("Successfully send a tx", async t => {
