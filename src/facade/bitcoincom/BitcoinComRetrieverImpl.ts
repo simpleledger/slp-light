@@ -1,8 +1,9 @@
 import { Address, Utxo } from '../../utxo/Utxo';
 import Axios from 'axios';
 import { BigNumber } from 'bignumber.js';
-import { BchUtxoRetrieverFacade, SlpUtxoRetrieverFacade, UtxoRetrieverFacade } from '../UtxoRetrieverFacade';
+import { BchUtxoRetrieverFacade, SlpUtxoRetrieverFacade } from '../UtxoRetrieverFacade';
 
+/*
 export class BitcoinComRetrieverImpl implements UtxoRetrieverFacade {
     static SLP_INDEXER_URL: string = "https://rest.bitcoin.com/";
     static FULL_INDEXER_URL: string = "https://explorer.api.bitcoin.com/";
@@ -28,10 +29,13 @@ export class BitcoinComRetrieverImpl implements UtxoRetrieverFacade {
     }
 
 }
+*/
 
 export class BitcoinComBchRetriever implements BchUtxoRetrieverFacade {
+    static FULL_INDEXER_URL: string = "https://explorer.api.bitcoin.com/";
+
     public getBchUtxosFromAddress = (address: Address): Promise<Utxo[]> => {
-        return Axios.post(BitcoinComRetrieverImpl.FULL_INDEXER_URL + "bch/v1/addrs/utxo", {
+        return Axios.post(BitcoinComBchRetriever.FULL_INDEXER_URL + "bch/v1/addrs/utxo", {
             addrs: address.cashAddress
         }).then(response => {
             if (response.data == undefined) {
@@ -52,8 +56,10 @@ export class BitcoinComBchRetriever implements BchUtxoRetrieverFacade {
 }
 
 export class BitcoinComSlpRetriever implements SlpUtxoRetrieverFacade {
-    public getSlpUtxosFromAddress = (address: Address): Promise<Utxo[]> => {
-        return Axios.get(BitcoinComRetrieverImpl.SLP_INDEXER_URL + "v3/slp/utxo/address/" + address.cashAddress).then(response => {
+    static SLP_INDEXER_URL: string = "https://rest.bitcoin.com/";
+
+    public getSlpUtxosFromAddress = (address: Address, tokenId: string): Promise<Utxo[]> => {
+        return Axios.get(BitcoinComSlpRetriever.SLP_INDEXER_URL + "v3/slp/utxo/address/" + address.cashAddress).then(response => {
             if (response.data == undefined) {
                 return [];
             }

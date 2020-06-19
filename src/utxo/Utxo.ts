@@ -23,6 +23,7 @@ export interface SlpToken {
 export interface Address {
     wif?: string
     cashAddress: string;
+    slpAddress: string;
 }
 
 export interface SelectedUtxos {

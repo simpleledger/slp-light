@@ -2,7 +2,7 @@ import { BuildTransaction } from './transaction/BuildTransaction';
 import { UtxoSelector } from './utxo/UtxoSelector';
 import { Address, SelectedUtxos, Utxo } from './utxo/Utxo';
 import BigNumber from 'bignumber.js';
-import { UtxoRetrieverFacade } from './facade/UtxoRetrieverFacade';
+import { BchUtxoRetrieverFacade, SlpUtxoRetrieverFacade } from './facade/UtxoRetrieverFacade';
 
 export const createRawTx = (tokenAmount: BigNumber,
                             tokenId: string,
@@ -12,8 +12,12 @@ export const createRawTx = (tokenAmount: BigNumber,
     return BuildTransaction.createTransaction(tokenAmount, sendToAddress, changeAddress, tokenId, selectedUtxos);
 }
 
-export const retrieveUtxos = (address: Address, utxoProvider: UtxoRetrieverFacade): Promise<Utxo[]> => {
-    return utxoProvider.getUtxosFromAddress(address);
+export const retrieveBchUtxos = (address: Address, utxoProvider: BchUtxoRetrieverFacade): Promise<Utxo[]> => {
+    return utxoProvider.getBchUtxosFromAddress(address);
+}
+
+export const retrieveSlpUtxos = (address: Address, tokenId: string, utxoProvider: SlpUtxoRetrieverFacade): Promise<Utxo[]> => {
+    return utxoProvider.getSlpUtxosFromAddress(address, tokenId);
 }
 
 export const selectUtxos = (tokenAmount: BigNumber, tokenId: string, currentUtxos: Utxo[]): SelectedUtxos => {

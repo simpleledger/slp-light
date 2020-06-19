@@ -1,14 +1,7 @@
 import { Address, Utxo } from '../utxo/Utxo';
 
-export interface UtxoRetrieverFacade {
-    bchUtxoRetrieverFacade: BchUtxoRetrieverFacade;
-    slpUtxoRetrieverFacade: SlpUtxoRetrieverFacade;
-
-    getUtxosFromAddress(address: Address): Promise<Utxo[]>;
-}
-
 export interface SlpUtxoRetrieverFacade {
-    getSlpUtxosFromAddress: (address: Address) => Promise<Utxo[]>;
+    getSlpUtxosFromAddress: (address: Address, tokenId: string) => Promise<Utxo[]>;
 }
 
 export interface BchUtxoRetrieverFacade {
