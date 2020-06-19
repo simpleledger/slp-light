@@ -43,7 +43,6 @@ export class BitcoinComBchRetriever implements BchUtxoRetrieverFacade {
             }
             return response.data.map(r => {
                 const utxo: Utxo = {
-                    scriptPubKey: r.scriptPubKey,
                     index: r.vout,
                     txId: r.txid,
                     amount: r.satoshis,
@@ -65,7 +64,6 @@ export class BitcoinComSlpRetriever implements SlpUtxoRetrieverFacade {
             }
             return response.data.map(r => {
                 const utxo: Utxo = {
-                    scriptPubKey: r.scriptPubKey,
                     index: r.vout,
                     amount: r.satoshis,
                     txId: r.txId,
@@ -73,11 +71,7 @@ export class BitcoinComSlpRetriever implements SlpUtxoRetrieverFacade {
                     slpToken: {
                         slpTokenId: r.slpTokenId,
                         amount: r.tokenDecimal != 0 ? new BigNumber(r.tokenAmount).shiftedBy(r.tokenDecimal) : new BigNumber(r.tokenAmount),
-                        tokenTicker: r.tokenTicker,
                         transactionType: r.transactionType,
-                        tokenType: r.tokenType,
-                        slpTokenName: r.slpTokenName,
-                        decimals: r.tokenDecimal,
                         hasBaton: r.hasBaton
                     }
                 };
