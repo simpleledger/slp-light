@@ -17,7 +17,7 @@ example using public available apis from [Bitcoin.com](https://rest.bitcoin.com)
 Using `BitcoinComRetrieverImpl`
 ```ts
 import { retrieveUtxos } from './src/index'; 
-import { BitcoinComRetrieverImpl } from './src/facade/BitcoinComRetrieverImpl'; 
+import { BitcoinComRetrieverImpl } from './src/facade/bitcoincom/BitcoinComRetrieverImpl'; 
 import { Utxo } from './src/Utxo';
 
 let utxos: Utxo[] = await retrieveUtxos({cashAddress: "bitcoincash:qzm4u38umtw6ak4was24r6ucerkzzxqr5s2328xm0r", wif: "WIF"}, new BitcoinComRetrieverImpl());
@@ -69,7 +69,7 @@ const rawTx = createRawTx(new BigNumber("5"), "dcf128f7f836f369d339963685e91b105
 Using `BitcoinComRetrieverImpl`
 ```ts
 import { retrieveUtxos, createRawTx, selectUtxos } from './src/index'; 
-import { BitcoinComRetrieverImpl } from './src/facade/BitcoinComRetrieverImpl'; 
+import { BitcoinComRetrieverImpl } from './src/facade/bitcoincom/BitcoinComRetrieverImpl'; 
 import BigNumber from 'bignumber.js'; 
 import { SelectedUtxos } from './src/utxo'; 
 

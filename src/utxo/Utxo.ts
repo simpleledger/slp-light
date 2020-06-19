@@ -5,24 +5,20 @@ export interface Utxo {
     amount: number;
     index: number;
     txId: string;
-    scriptPubKey: string;
     slpToken?: SlpToken;
 }
 
 export interface SlpToken {
     slpTokenId: string;
     amount: BigNumber;
-    tokenTicker: string;
     transactionType: string;
-    tokenType: string;
-    slpTokenName: string;
-    decimals: number;
     hasBaton: boolean;
 }
 
 export interface Address {
     wif?: string
     cashAddress: string;
+    slpAddress: string;
 }
 
 export interface SelectedUtxos {
