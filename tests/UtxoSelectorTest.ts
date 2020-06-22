@@ -7,16 +7,12 @@ test("Should succeed with 2 utxo", t => {
     const tokenId = "A TOKEN";
     const currentUtxo: Utxo[] = [
         {
-            address: {cashAddress: '124'}, amount: 5000, index: 0, scriptPubKey: '', slpToken: undefined, txId: ''
+            address: {cashAddress: '124', slpAddress: '123'}, amount: 5000, index: 0, slpToken: undefined, txId: ''
         },
         {
-            address: {cashAddress: '444'}, amount: 546, index: 0, scriptPubKey: '', slpToken: {
+            address: {cashAddress: '124', slpAddress: '123'}, amount: 546, index: 0, slpToken: {
                 amount: new BigNumber("500"),
-                decimals: 0,
                 slpTokenId: tokenId,
-                slpTokenName: '',
-                tokenTicker: '',
-                tokenType: '',
                 transactionType: '',
                 hasBaton: false
             }, txId: ''
@@ -31,16 +27,12 @@ test("Should give to miner utxo", t => {
     const tokenId = "A TOKEN";
     const currentUtxo: Utxo[] = [
         {
-            address: {cashAddress: '124'}, amount: 1200, index: 0, scriptPubKey: '', slpToken: undefined, txId: ''
+            address: {cashAddress: '124', slpAddress: '123'}, amount: 1200, index: 0, slpToken: undefined, txId: ''
         },
         {
-            address: {cashAddress: '444'}, amount: 546, index: 0, scriptPubKey: '', slpToken: {
+            address: {cashAddress: '444', slpAddress: "443"}, amount: 546, index: 0, slpToken: {
                 amount: new BigNumber("500"),
-                decimals: 0,
                 slpTokenId: tokenId,
-                slpTokenName: '',
-                tokenTicker: '',
-                tokenType: '',
                 transactionType: '',
                 hasBaton: false
             }, txId: ''

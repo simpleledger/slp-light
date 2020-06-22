@@ -53,6 +53,7 @@ export const simpleSend = async (senderWif: string,
         senderAddress /* send change back to sender address */,
         selectedUtxos
     );
+    console.log(rawTx)
 
     const broadcastResult = await bitbox.RawTransactions.sendRawTransaction(rawTx);
     return broadcastResult;
