@@ -65,6 +65,34 @@ const rawTx = createRawTx(new BigNumber("5"), "dcf128f7f836f369d339963685e91b105
         mySelectedUtxos);
 ```
 
+### Broadcast Transaction
+You can either use one of the premade broadcasting facades implementing the interface or implement your own as shown below.
+```ts
+import { broadcastTransaction } from './src/index'; 
+import { BroadcastFacade } from './src/facade/BroadcastFacade';
+ 
+const broadcastFacade: BroadcastFacade = {
+        broadcastTransaction(raw: string): Promise<string> {
+            return Promise.resolve('BROADCAST REQUEST GOES HERE');
+        }
+}
+const rawTx = broadcastTransaction("TX_RAW", broadcastFacade);
+```
+
+### Using simpleSend
+If you just want to broadcast a transaction using [Bitcoin.com](https://rest.bitcoin.com) apis then you can use
+the `simpleSend()` function from `simple.ts`. This method is an abstraction on top of the other methods for simplicity.
+If you want more control use the other methods in combination with each other.
+```ts
+import { simpleSend } from './src/simple'; 
+import BigNumber from 'bignumber.js'; 
+
+const txId = await simpleSend("Kzm1oz8sLSvuQLEgu99xixSkhNj7kyBZe6TpqTfdgKGhXUeSLSR",
+            "simpleledger:qp2mdqc4r8ylsrnu9f4j5xu8r47m722f6uyfsz4zr6",
+            "323437d4c86b00874c3b00cd454ab6ffb3226130fde09747009cf270caedddcf",
+            new BigNumber(300));
+```
+
 # Build & Test
 
 ## Build
@@ -76,7 +104,6 @@ npm run build
 ```bash
 npm run test:npx
 ```
-
 
 ## Authors
 
