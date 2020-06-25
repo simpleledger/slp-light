@@ -1,9 +1,10 @@
 import BigNumber from 'bignumber.js';
-import { BITBOX } from 'bitbox-sdk'
+import { ECPair } from 'bitbox-sdk'
 import { retrieveBchUtxos, retrieveSlpUtxos, selectUtxos, createRawTx } from './index';
-import { SelectedUtxos, Utxo, Address } from './utxo/Utxo';
+import { Utxo, Address } from './utxo/Utxo';
 import { BitcoinComBchRetriever, BitcoinComSlpRetriever } from './facade/bitcoincom/BitcoinComRetrieverImpl';
 import { toSlpAddress } from 'bchaddrjs-slp';
+import { BitcoinComBroadcastFacadeImpl } from './facade/bitcoincom/BitcoinComBroadcastFacadeImpl';
 
 // simple send mechanism using bitcoin-com
 // TODO this should compare against another source for inputs
@@ -12,10 +13,10 @@ export const simpleSend = async (senderWif: string,
                                  receipientAddress: string,
                                  tokenId: string,
                                  tokenAmount: BigNumber): Promise<string> => {
-    const bitbox = new BITBOX();
 
-    const ecpair = bitbox.ECPair.fromWIF(senderWif);
-    const senderAddress = bitbox.ECPair.toCashAddress(ecpair);
+
+    const ecpair = new ECPair().fromWIF(senderWif);
+    const senderAddress = new ECPair().toCashAddress(ecpair);
 
     const address: Address = {
         cashAddress: senderAddress,
@@ -55,7 +56,6 @@ export const simpleSend = async (senderWif: string,
     );
     console.log(rawTx)
 
-    const broadcastResult = await bitbox.RawTransactions.sendRawTransaction(rawTx);
-    return broadcastResult;
+    return await new BitcoinComBroadcastFacadeImpl().broadcastTransaction(rawTx);
 }
 
