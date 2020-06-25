@@ -2,9 +2,23 @@ import BigNumber from 'bignumber.js';
 import { ECPair } from 'bitbox-sdk'
 import { retrieveBchUtxos, retrieveSlpUtxos, selectUtxos, createRawTx } from './index';
 import { Utxo, Address } from './utxo/Utxo';
+import { BroadcastFacade } from './facade/BroadcastFacade';
+import { SlpUtxoRetrieverFacade, BchUtxoRetrieverFacade } from './facade/UtxoRetrieverFacade';
 import { BitcoinComBchRetriever, BitcoinComSlpRetriever } from './facade/bitcoincom/BitcoinComRetrieverImpl';
 import { toSlpAddress } from 'bchaddrjs-slp';
 import { BitcoinComBroadcastFacadeImpl } from './facade/bitcoincom/BitcoinComBroadcastFacadeImpl';
+
+export interface SimpleConfig {
+    slpUtxoRetriever: SlpUtxoRetrieverFacade;
+    bchUtxoRetriever: BchUtxoRetrieverFacade;
+    broadcaster:      BroadcastFacade;
+};
+
+const defaultConfig: SimpleConfig = {
+    slpUtxoRetriever: new BitcoinComSlpRetriever(),
+    bchUtxoRetriever: new BitcoinComBchRetriever(),
+    broadcaster:      new BitcoinComBroadcastFacadeImpl()
+};
 
 // simple send mechanism using bitcoin-com
 // TODO this should compare against another source for inputs
@@ -12,7 +26,9 @@ import { BitcoinComBroadcastFacadeImpl } from './facade/bitcoincom/BitcoinComBro
 export const simpleSend = async (senderWif: string,
                                  receipientAddress: string,
                                  tokenId: string,
-                                 tokenAmount: BigNumber): Promise<string> => {
+                                 tokenAmount: BigNumber,
+                                 config: SimpleConfig = defaultConfig
+                                ): Promise<string> => {
 
 
     const ecpair = new ECPair().fromWIF(senderWif);
@@ -24,17 +40,10 @@ export const simpleSend = async (senderWif: string,
         wif: senderWif
     };
 
-    const bchUtxos = await retrieveBchUtxos(
-        address,
-        new BitcoinComBchRetriever()
-    );
+    const bchUtxos = await retrieveBchUtxos(address, config.bchUtxoRetriever);
     console.log('bch utxos:', bchUtxos);
 
-    const slpUtxos = await retrieveSlpUtxos(
-        address,
-        tokenId,
-        new BitcoinComSlpRetriever()
-    );
+    const slpUtxos = await retrieveSlpUtxos(address, tokenId, config.slpUtxoRetriever);
     console.log('slp utxos:', bchUtxos);
 
     // get distinct utxos from bch and slp lookups
@@ -56,6 +65,6 @@ export const simpleSend = async (senderWif: string,
     );
     console.log(rawTx)
 
-    return await new BitcoinComBroadcastFacadeImpl().broadcastTransaction(rawTx);
+    return await config.broadcaster.broadcastTransaction(rawTx);
 }
 
