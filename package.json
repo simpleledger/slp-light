@@ -50,7 +50,7 @@
     "node": ">=8.9"
   },
   "dependencies": {
-    "axios": "0.19.2",
+    "axios": "0.21.1",
     "bchaddrjs-slp": "^0.2.8",
     "bignumber.js": "9.0.0",
     "bitbox-sdk": "8.11.2",
